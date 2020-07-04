@@ -83,6 +83,12 @@
         {{ items }}
 {% endfor %}
 {% endif %}
+{% if item.grok is defined and item.grok is iterable %}
+    [inputs.{{ item.input }}.grok]
+{% for items in item.grok %}
+        {{ items }}
+{% endfor %}
+{% endif %}
 {% if item.objects is defined and item.objects is iterable %}
 {% for object in item.objects %}
 [[inputs.{{ item.input }}.object]]
@@ -132,7 +138,7 @@
 
 
 ###############################################################################
-#                            AGGREGATORS PLUGINS                               #
+#                            AGGREGATORS PLUGINS                              #
 ###############################################################################
 
 {% if telegraf_aggregators is defined and telegraf_aggregators is iterable %}
